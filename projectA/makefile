@@ -1,14 +1,15 @@
+in=include
 sub.o:./src/other1.c
-	gcc -c ./src/other1.c -I include -o sub.o
-	mv sub.o ./lib
+	gcc -c $^ -I in -o $@
+	mv $@ lib
 add.o:./src/other2.c
-	gcc -c ./src/other2.c -I include -o add.o
-	mv add.o ./lib
+	gcc -c $^ -I in -o $@
+	mv $@ lib
 libcal.a:
-	ar rcs libcal.a ./lib/*.o
-	mv lincal.a ./lib
+	ar rcs $@ lib/*.o
+	mv $@ lib
 main:
-	gcc -o main test.c -Llib/  -lcal -I include
+	gcc -o $@ test.c -Llib  -lcal -I in
 clean:
-	rm ./lib/*.o;rm main
+	rm lib/*.o;rm main
 
